@@ -1,1 +1,1 @@
-TRAVEL AGENCY WEBSITE "https://travel-agency-he4f.onrender.com"
+TRAVEL AGENCY WEBSITE "https://aayush-techs.github.io/TRAVEL-AGENCY/"
