@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access - Wanderlust Travels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .auth-container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .auth-banner {
+            flex: 1;
+            background: linear-gradient(rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)), url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .auth-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .auth-banner p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-forms {
+            flex: 1;
+            padding: 3rem;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #666;
+        }
+        
+        .form-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+            color: #666;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 42%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 42%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .social-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+        
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .back-to-home a {
+            color: #667eea;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .back-to-home a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+            .auth-banner {
+                padding: 2rem;
+            }
+            .auth-forms {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-banner">
+            <h2>Start Your Journey With Us</h2>
+            <p>Join thousands of travelers who trust Wanderlust Travels for their dream vacations. Create an account to save your preferences, track bookings, and get exclusive deals.</p>
+            <div class="stats">
+                <p><i class="fas fa-users"></i> 5000+ Happy Travelers</p>
+                <p><i class="fas fa-globe"></i> 120+ Destinations</p>
+                <p><i class="fas fa-star"></i> 4.9/5 Customer Rating</p>
+            </div>
+        </div>
+
+        <div class="auth-forms">
+            <div class="form-header">
+                <h2>Account Access</h2>
+                <p>Welcome back! Please sign in to continue</p>
+            </div>
+
+            <div class="form-tabs">
+                <div class="tab active" data-tab="login">Sign In</div>
+                <div class="tab" data-tab="register">Register</div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="form-section active" id="login-form">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" id="show-recovery">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn">Sign In</button>
+                </form>
+
+                <div class="divider">or continue with</div>
+
+                <div class="social-login">
+                    <button class="social-btn">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button class="social-btn">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
+
+                <div class="signup-link">
+                    Don't have an account? <a href="#" id="show-register">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="form-section" id="register-form">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Create a password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required> I agree to the <a href="#">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Create Account</button>
+                </form>
+
+                <div class="signup-link">
+                    Already have an account? <a href="#" id="show-login">Sign In</a>
+                </div>
+            </div>
+
+            <!-- Password Recovery Form -->
+            <div class="form-section" id="recovery-form">
+                <form id="recoveryForm">
+                    <div class="form-group">
+                        <label for="recovery-email">Email Address</label>
+                        <input type="email" id="recovery-email" placeholder="Enter your email" required>
+                    </div>
+                    <p>We'll send a password reset link to your email address.</p>
+                    <button type="submit" class="btn">Reset Password</button>
+                </form>
+
+                <div class="signup-link">
+                    Remember your password? <a href="#" id="back-to-login">Back to Sign In</a>
+                </div>
+            </div>
+
+            <div class="back-to-home">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and forms
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Show corresponding form
+                const tabName = tab.getAttribute('data-tab');
+                if (tabName === 'login') {
+                    document.getElementById('login-form').classList.add('active');
+                } else if (tabName === 'register') {
+                    document.getElementById('register-form').classList.add('active');
+                }
+            });
+        });
+
+        // Show registration form from links
+        document.getElementById('show-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.tab[data-tab="register"]').classList.add('active');
+            document.getElementById('register-form').classList.add('active');
+        });
+
+        // Show login form from links
+        document.getElementById('show-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+
+        // Show password recovery form
+        document.getElementById('show-recovery').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.getElementById('recovery-form').classList.add('active');
+        });
+
+        // Back to login from recovery form
+        document.getElementById('back-to-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.getElementById('login-form').classList.add('active');
+        });
+
+        // Form submission handlers
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // In a real app, you would send this data to a server
+            console.log('Login attempt:', {
+                email,
+                password
+            });
+            alert('Login functionality would connect to server in a real application.');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // In a real app, you would send this data to a server
+            console.log('Registration attempt:', {
+                name,
+                email,
+                password
+            });
+            alert('Registration successful! Welcome to Wanderlust Travels.');
+
+            // Reset form and show login
+            document.getElementById('registerForm').reset();
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+
+        document.getElementById('recoveryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('recovery-email').value;
+
+            // In a real app, you would send this data to a server
+            console.log('Password recovery request:', {
+                email
+            });
+            alert('Password reset instructions have been sent to your email address.');
+
+            // Reset form and show login
+            document.getElementById('recoveryForm').reset();
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.getElementById('login-form').classList.add('active');
+        });
+    </script>
+</body>
+
+</html>
