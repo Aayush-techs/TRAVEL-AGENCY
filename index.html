@@ -259,6 +259,11 @@
         .nav-links a:hover::after {
             width: 100%;
         }
+        /* Hide mobile auth links on desktop */
+        
+        .mobile-auth-link {
+            display: none;
+        }
         
         .nav-icons {
             display: flex;
@@ -1287,6 +1292,38 @@
             .nav-links.active {
                 left: 0;
             }
+            /* Show mobile auth links in mobile menu */
+            .mobile-auth-link {
+                display: block;
+            }
+            .mobile-auth-link a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 1.1rem;
+                padding: 0.5rem 1rem;
+                border: 2px solid #fff;
+                border-radius: 50px;
+                margin: 0.5rem 0;
+                transition: all 0.3s;
+                width: 80%;
+                text-align: center;
+            }
+            .mobile-auth-link a:hover {
+                background: #fff;
+                color: #000;
+            }
+            /* Special style for register link */
+            .mobile-auth-link:nth-child(9) a {
+                background: #ff6b6b;
+                border: 2px solid #ff6b6b;
+            }
+            .mobile-auth-link:nth-child(9) a:hover {
+                background: #ff5252;
+                border: 2px solid #ff5252;
+                color: #fff;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            }
             .menu-toggle {
                 display: block;
             }
@@ -1351,8 +1388,13 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            /* Adjust auth buttons for mobile */
             .auth-buttons {
-                display: none;
+                gap: 0.5rem;
+            }
+            .auth-button {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
             }
             /* Adjust map height for very small screens */
             .map-embed {
@@ -1473,6 +1515,9 @@
                 <li><a href="#packages">Packages</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <!-- Add sign-in link to mobile menu -->
+                <li class="mobile-auth-link"><a href="auth.html">Sign In</a></li>
+                <li class="mobile-auth-link"><a href="auth.html#register">Register</a></li>
             </ul>
             <div class="nav-icons">
                 <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
@@ -1504,9 +1549,11 @@
             <div class="about-text">
                 <h2>About Wanderlust Travels</h2>
                 <p>With over 15 years of experience in the travel industry, Wanderlust Travels has been crafting unforgettable journeys for travelers worldwide. Our team of expert travel consultants understands that every journey is unique and deserves personalized
-                    attention.</p>
+                    attention.
+                </p>
                 <p>We believe in sustainable tourism and work closely with local communities to ensure our travels have a positive impact on the places we visit. Our commitment to excellence has earned us recognition as one of the top travel agencies in
-                    India.</p>
+                    India.
+                </p>
 
                 <div class="about-stats">
                     <div class="stat-item">
